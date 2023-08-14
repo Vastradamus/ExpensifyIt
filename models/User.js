@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
-const { Schema } = mongoose
+
 
 const UserSchema = new mongoose.Schema({
  
@@ -24,14 +24,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true 
   },
-  checklist: [{ 
-    type: Schema.Types.ObjectId, 
-    ref: 'Checklist' 
-}],
-  folders: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Folder'
-}]
+
 })
 
 

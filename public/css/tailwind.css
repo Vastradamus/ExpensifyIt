@@ -8,6 +8,4 @@
    
         @apply text-gray-300 line-through 
     }
-    .not{
-        @apply underline
-    }
+  

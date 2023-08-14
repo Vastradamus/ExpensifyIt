@@ -17,7 +17,7 @@ Array.from(todoComplete).forEach((el)=>{
 
 
 async function markComplete(){
-    const todoId = this.parentNode.dataset.id
+    const todoId = event.target.closest('li').dataset.id;
     try{
         const response = await fetch('/list/markComplete', {
             method: 'put',
@@ -35,7 +35,7 @@ async function markComplete(){
 }
 
 async function markIncomplete(){
-    const todoId = this.parentNode.dataset.id
+    const todoId = this.parentNode.parentNode.dataset.id;
     try{
         const response = await fetch('/list/markIncomplete', {
             method: 'put',
@@ -65,7 +65,7 @@ class Del {
     }
 
     async deleteTodo(){
-        const todoId = event.target.parentNode.dataset.id
+        const todoId = event.target.closest('li').dataset.id;
         try{ 
             const response = await fetch(`${this.route}`, {
                 method: 'delete',
@@ -131,3 +131,18 @@ overlay.addEventListener('click', () => {
   copyChecklistForm.classList.add('hidden');
   overlay.classList.add('hidden');
 });
+
+
+
+// li hidden functionality
+
+const todoLi = document.querySelectorAll('todoItem')
+
+Array.from(todoLi).forEach((el)=>{
+    el.addEventListener('mouseover', () => {
+
+    })
+})
+
+
+
