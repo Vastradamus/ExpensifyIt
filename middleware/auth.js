@@ -1,14 +1,16 @@
 const REDIRECT_ROUTES = {
   home: '/',
-  main: '/checklists'
+  main: '/dashboard'
 };
 
 
 module.exports = {
   ensureAuth: function (req, res, next) {
     if (req.isAuthenticated()) {
+      console.log('user is logged in')
       return next()
     } else {
+      console.log('user is not logged in')
       res.redirect(REDIRECT_ROUTES.home)
     }
   },

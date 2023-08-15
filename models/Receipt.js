@@ -41,7 +41,7 @@ const receiptSchema = new mongoose.Schema({
     required: true,
   },
   createdAt: { type: Date, default: Date.now },
-  claudinary: { type: String },
+  cloudinary: { type: String },
 });
 
 module.exports = mongoose.model("Receipt", receiptSchema);
