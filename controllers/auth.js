@@ -8,7 +8,7 @@ const REDIRECT_ROUTES = {
   signup: '/signup',
   logout: '/logout',
   home: '/',
-  main: '/checklists'
+  main: '/dashboard'
 };
 
 

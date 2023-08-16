@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const SharedItemsSchema = new mongoose.Schema({
+const ItemsSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>parser document</title>
+  <link href="/css/output.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+  <table class="table-auto  m-auto mt-20">
+    <thead>
+      <tr>
+        <th class="px-4 py-2 border border-black">Article Name</th>
+        <th class="px-4 py-2 border border-black">Price</th>
+        <th class="px-4 py-2 border border-black">Quantity</th>
+        <th class="px-4 py-2 border border-black">Total Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% receiptText.forEach( (el, index )=> { %>
+        <tr id="table-row">
+          <td class="px-4 py-2 border border-black" id="element-name-<%= index %>">
+            <%= el.name %>
+          </td>
+          <td class="px-4 py-2 border border-black" id="element-price-<%= index %>">
+            <%= el.price %>
+          </td>
+          <td class="px-4 py-2 border border-black" id="element-quantity-<%= index %>">
+            <%= el.quantity %>
+          </td>
+          <td class="px-4 py-2 border border-black" id="element-total-<%= index %>">
+            <%= el.total %>
+          </td>
+          <td class="px-4 py-2 border border-black" class="element-category-<%= index %>">
+          <select name="main-categories" id="main-categories-<%= index %>" class='main-categories-options'>
+            <option value="nothing-picked"></option>
+            <% categories.forEach( el => { %>
+              
+              <option value="<%=el._id %>" <%= el._id.toString() === receiptText[index]?.categoryId?.toString() ?? '' ? 'selected' : '' %>>
+                <%=el.name %>
+            </option>
+            
+            <% }) %>   
+          </select>
+        </td>
+        <td class="px-4 py-2 border border-black" id="element-subcategory-<%= index %>">
+          <select name="sub-categories" id="sub-categories-<%= index %>">
+            <option value="<%= el.subCategoryId %>" selected>
+                <%= el.subCategoryName %>
+            </option>
+          </select>
+        </td>
+        
+        </tr>
+        <% }) %>
+    </tbody>
+  </table>
+
+  <button id="saveChanges" name="<%= receiptId %>" class=" rounded-lg bg-blue-600">Save Changes</button>
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>
