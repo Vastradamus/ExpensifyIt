@@ -2,7 +2,7 @@ async function showSubcategories(categoryId) {
 
     try {
       const subcategoriesDiv = document.getElementById("subCategory-container");
-      const response = await fetch(`/api/subcategories/${categoryId}`);
+      const response = await fetch(`/categories/getSubCategories/${categoryId}`);
       const data = await response.json();
     console.log(data)
       subcategoriesDiv.innerHTML = ""; // Clear any existing subcategories

@@ -10,22 +10,21 @@ module.exports = {
             ]
           });
           console.log(userId)
-          console.log('ovo radi')
-          console.log(allCategories)
         res.render('categories.ejs', { categories: allCategories});
     },
     createCategory: async (req,res) => {
         const newCategoryName = req.body.categoryName
         console.log('category name ', newCategoryName)
        const existingItem = await Category.findOne({name: newCategoryName})
-
-        if (existingItem.default === true || existingItem.userId == req.user._id) {
-            console.log('item aldraedy exists')
-            res.redirect('/categories')
+        const userId = req.user._id
+      
+        if (existingItem ) {
+            console.log('item already exists');
+            res.redirect('/categories');
         } else {
             await Category.create({
                 name: newCategoryName,
-                userId: req.user._id
+                userId: userId
             })
             console.log('folder has been added!')
                 res.redirect('/categories')
@@ -34,6 +33,54 @@ module.exports = {
         
     },
     createSubCategory: async (req,res) => {
+        const newsubCategoryName = req.body.subCategoryName
+        const categoryId = req.body.categories
+        console.log('viiiiiiiiiiiiiiiu')
+        console.log(categoryId)
+        console.log(newsubCategoryName)
+
+        const existingItem = await Category.findOne({
+            _id: categoryId,
+            subCategories: {
+              $elemMatch: { name: newsubCategoryName }
+            }
+          });
+          console.log(existingItem)
+        if (existingItem) {
+           console.log('item aldraedy exists')
+           res.redirect('/categories')
+        } else {
+            await Category.findByIdAndUpdate(categoryId, {
+                $push: {
+                  subCategories: {
+                    name: newsubCategoryName,
+                    userId: req.user._id
+                  }
+                }
+              });
+            console.log('subcategory has been added!')
+                res.redirect('/categories')
+        }
+
+      
+    },
+    getSubcategories: async (req, res) => {
+        try {
+          console.log("odavde krece getSbucategories funcija tako da ne gledas nista iznad ");
+          const mainCategoryId = req.params.id;
+          console.log(mainCategoryId);
+          const category = await Category.findById(mainCategoryId);
+          console.log(category.subCategories);
+    
+          // Returning the subCategories array as JSON
+          res.json(category.subCategories);
+        } catch (err) {
+          console.error(err);
+          res.status(500).json({ error: "An error occurred" });
+        }
+      },
+
+      createSubCategory: async (req,res) => {
         const newsubCategoryName = req.body.subCategoryName
         const categoryId = req.body.categories
         console.log('viiiiiiiiiiiiiiiu')
