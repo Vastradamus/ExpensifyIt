@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>parser document</title>
+  <link href="/css/output.css" rel="stylesheet">
+</head>
+
+<body >
+    <h1>categories</h1>
+    <div class="md:flex">
+        <section class="border border-black rounded-lg w-full md:w-1/2 mb-4 md:mb-0" id="category-container">
+            <ul>
+                <% categories.forEach((category, i) => { %>
+                <li class="category cursor-pointer" onclick="showSubcategories('<%= category._id %>')">
+                    <%= category.name %>
+                </li>
+                <% }); %>
+            </ul>
+        </section>
+        <section class="border border-black rounded-lg w-full md:w-1/2" id="subCategory-container">
+            <!-- Content for subCategory-container -->
+        </section>
+    </div>
+
+    <form action="/categories/createCategory" method='POST' class="mb-4">
+        <input type="text" placeholder="New Category Name" name='categoryName' class="border-2 border-gray-200 rounded px-4 py-2 mb-2 w-full focus:outline-none focus:border-blue-500">
+        <input type="submit" class="py-2 px-4 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600">
+    </form>
+
+    <form action="/categories/createSubCategory" method='POST' class="mb-4">
+        <input type="text" placeholder="new SubCategory Name" name='subCategoryName' class="border-2 border-gray-200 rounded px-4 py-2 mb-2 w-full focus:outline-none focus:border-blue-500">
+        <!-- piclist -->
+        <select name="categories" id="categoryList"
+          class="px-2 md:px-4 py-1 md:py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 w-full">
+          <option value="">Separate doc</option>
+          <% categories.forEach((el)=> { %>
+            <option value="<%=el._id %>" class='categoryList'>
+              <%=el.name %>
+            </option>
+            <% }) %>
+        </select>
+
+
+        <input type="submit" class="py-2 px-4 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600">
+    </form>
+    
+  <script src="/js/categories.js"></script>
+</body>
+
+</html>

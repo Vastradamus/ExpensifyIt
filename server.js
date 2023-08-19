@@ -14,6 +14,8 @@ const connectDB = require('./config/database')
 
 const mainRoutes = require('./routes/main')
 const processRoutes = require('./routes/process-receipt')
+const categoriesRoutes = require('./routes/categories')
+
 
 require('dotenv').config({path: './config/.env'})
 
@@ -52,6 +54,7 @@ app.use(flash())
 
 app.use('/', mainRoutes)
 app.use('/process-receipt', processRoutes)
+app.use('/categories', categoriesRoutes )
 
 app.listen(process.env.PORT, ()=>{
   console.log(`Server is running on a port ${process.env.PORT}, you better catch it!`)
