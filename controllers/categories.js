@@ -64,52 +64,5 @@ module.exports = {
 
       
     },
-    getSubcategories: async (req, res) => {
-        try {
-          console.log("odavde krece getSbucategories funcija tako da ne gledas nista iznad ");
-          const mainCategoryId = req.params.id;
-          console.log(mainCategoryId);
-          const category = await Category.findById(mainCategoryId);
-          console.log(category.subCategories);
-    
-          // Returning the subCategories array as JSON
-          res.json(category.subCategories);
-        } catch (err) {
-          console.error(err);
-          res.status(500).json({ error: "An error occurred" });
-        }
-      },
 
-      createSubCategory: async (req,res) => {
-        const newsubCategoryName = req.body.subCategoryName
-        const categoryId = req.body.categories
-        console.log('viiiiiiiiiiiiiiiu')
-        console.log(categoryId)
-        console.log(newsubCategoryName)
-
-        const existingItem = await Category.findOne({
-            _id: categoryId,
-            subCategories: {
-              $elemMatch: { name: newsubCategoryName }
-            }
-          });
-          console.log(existingItem)
-        if (existingItem) {
-           console.log('item aldraedy exists')
-           res.redirect('/categories')
-        } else {
-            await Category.findByIdAndUpdate(categoryId, {
-                $push: {
-                  subCategories: {
-                    name: newsubCategoryName,
-                    userId: req.user._id
-                  }
-                }
-              });
-            console.log('subcategory has been added!')
-                res.redirect('/categories')
-        }
-
-      
-    },
 }

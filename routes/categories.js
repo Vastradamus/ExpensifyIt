@@ -6,5 +6,6 @@ const { ensureAuth, ensureGuest } = require('../middleware/auth')
 router.get('/',ensureAuth, categoriesController.getIndex)
 router.post('/createCategory', categoriesController.createCategory)
 router.post('/createSubCategory', categoriesController.createSubCategory)
-router.get('/getSubCategories/:id', categoriesController.getSubcategories)
+
+
 module.exports = router
