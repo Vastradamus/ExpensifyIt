@@ -73,7 +73,7 @@ res.render('parser.ejs', { receiptText: items, categories: allCaterories, receip
 }
 
 module.exports = {
-  getEmail: async (req, res) => {
+ getEmail: async (req, res) => {
     console.log("req.user:", req.user);
     console.log("req.session:", req.session);
     var imap = new Imap({
@@ -90,7 +90,7 @@ module.exports = {
   
     function openInbox(cb) {
       imap.openBox("INBOX", false, cb);
-    }
+    } 
   
     imap.once("ready", function () {
       openInbox(function (err, box) {
@@ -101,7 +101,9 @@ module.exports = {
           if (!results || results.length === 0) {
             console.log("No unseen email available");
             imap.end();
-            return res.redirect("/dashboard");
+            res.json({
+              success: false,
+            })
           }
           imap.addFlags(results, ["\\Seen"], { uid: true }, function (err) {
             if (err) {
@@ -151,15 +153,19 @@ module.exports = {
                       req.session.cloudinaryUrl = result.url;
                       req.session.receiptId = savedReceipt._id;
                       console.log('123123', req.session.cloudinaryUrl)
-                      res.redirect("/process-receipt/parseEmail");
+                      // res.redirect("/process-receipt/parseEmail");
                       // Redirect to the waiting page
                       // res.redirect("/parser/waiting-for-items");
+                      res.json({
+                        success: true,
+                        url: result.url
+                      })
                     });
                   })
                 );
                 data.release()
               }
-            });
+            }) ;
   
             // Create a new receipt with the Cloudinary URL
   
@@ -194,6 +200,17 @@ module.exports = {
   
     imap.connect();
   },
+
+
+
+
+
+
+
+
+
+
+
   parseEmail: parseTest,
 
   saveChanges: async (req, res) => {
