@@ -2,67 +2,92 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>parser document</title>
-  <link href="/css/output.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>parser document</title>
+    <link href="/css/output.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
+    <div class="container mx-auto p-8 bg-white shadow-md rounded-lg">
+        <h1 class="text-2xl font-bold mb-6 text-center">Receipt Items</h1>
 
-  <table class="table-auto  m-auto mt-20">
-    <thead>
-      <tr>
-        <th class="px-4 py-2 border border-black">Article Name</th>
-        <th class="px-4 py-2 border border-black">Price</th>
-        <th class="px-4 py-2 border border-black">Quantity</th>
-        <th class="px-4 py-2 border border-black">Total Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% receiptText.forEach( (el, index )=> { %>
-        <tr id="table-row">
-          <td class="px-4 py-2 border border-black" id="element-name-<%= index %>">
-            <%= el.name %>
-          </td>
-          <td class="px-4 py-2 border border-black" id="element-price-<%= index %>">
-            <%= el.price %>
-          </td>
-          <td class="px-4 py-2 border border-black" id="element-quantity-<%= index %>">
-            <%= el.quantity %>
-          </td>
-          <td class="px-4 py-2 border border-black" id="element-total-<%= index %>">
-            <%= el.total %>
-          </td>
-          <td class="px-4 py-2 border border-black" class="element-category-<%= index %>">
-          <select name="main-categories" id="main-categories-<%= index %>" class='main-categories-options'>
-            <option value="nothing-picked"></option>
-            <% categories.forEach( el => { %>
-              
-              <option value="<%=el._id %>" <%= el._id.toString() === receiptText[index]?.categoryId?.toString() ?? '' ? 'selected' : '' %>>
-                <%=el.name %>
-            </option>
-            
-            <% }) %>   
-          </select>
-        </td>
-        <td class="px-4 py-2 border border-black" id="element-subcategory-<%= index %>">
-          <select name="sub-categories" id="sub-categories-<%= index %>">
-            <option value="<%= el.subCategoryId %>" selected>
-                <%= el.subCategoryName %>
-            </option>
-          </select>
-        </td>
-        
-        </tr>
-        <% }) %>
-    </tbody>
-  </table>
+        <table class="table-auto w-full m-auto mt-10">
+            <thead class="bg-gray-200 text-center">
+                <tr>
+                    <th class="px-4 py-2">#</th>
+                    <th class="px-4 py-2">Article Name</th>
+                    <th class="px-4 py-2">Price</th>
+                    <th class="px-4 py-2">Quantity</th>
+                    <th class="px-4 py-2">Total Price</th>
+                    <th class="px-4 py-2">Category</th>
+                    <th class="px-4 py-2">Subcategory</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let totalPriceSum=0; %>
+                    <% receiptText.forEach( (el, index )=> { %>
+                        <tr class="hover:bg-gray-50 text-center table-row">
+                            <td class="px-4 py-2 border-t" id="element-index-<%= index %>">
+                                <%= index + 1 %>
+                            </td>
+                            <td class="px-4 py-2 border-t" id="element-name-<%= index %>">
+                                <%= el.name %>
+                            </td>
+                            <td class="px-4 py-2 border-t" id="element-price-<%= index %>">
+                                <%= el.price %>
+                            </td>
+                            <td class="px-4 py-2 border-t" id="element-quantity-<%= index %>">
+                                <%= el.quantity %>
+                            </td>
+                            <td class="px-4 py-2 border-t" id="element-total-<%= index %>">
+                                <%= el.total %>
+                            </td>
+                            <% totalPriceSum +=parseFloat(el.total); %>
+                                <td class="px-4 py-2 border-t">
+                                    <select name="main-categories"
+                                        class="border rounded px-2 py-1 w-40 text-center main-categories-options"
+                                        id="main-categories-<%= index %>">
+                                        <option value="nothing-picked"></option>
+                                        <% categories.forEach( el=> { %>
+                                            <option value="<%=el._id %>"
+                                                <%= el._id.toString()=== receiptText[index]?.categoryId?.toString() ?? ''
+                                                ? 'selected' : '' %>>
+                                                <%=el.name %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </td>
+                                <td class="px-4 py-2 border-t" id="element-subcategory-<%= index %>">
+                                    <select name="sub-categories" class="border rounded px-2 py-1 w-40 text-center"
+                                        id="sub-categories-<%= index %>">
+                                        <option value="<%= el.subCategoryId %>" selected>
+                                            <%= el.subCategoryName %>
+                                        </option>
+                                    </select>
+                                </td>
 
-  <button id="saveChanges" name="<%= receiptId %>" class=" rounded-lg bg-blue-600">Save Changes</button>
+                        </tr>
+                        <% }) %>
+                            <tr class="text-center bg-gray-200 font-bold">
+                                <td colspan="4" class="px-4 py-2">Total</td>
+                                <td class="px-4 py-2">
+                                    <%= totalPriceSum.toFixed(2) %>
+                                </td>
+                                <td colspan="2" class="px-4 py-2"></td>
+                            </tr>
+            </tbody>
+        </table>
 
-  <script src="/js/main.js"></script>
+        <div class="text-center mt-6">
+            <button id="saveChanges" name="<%= receiptId %>"
+                class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md cursor-pointer transition ease-in-out duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Save
+                Changes</button>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
 </body>
 
 </html>

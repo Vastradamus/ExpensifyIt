@@ -104,7 +104,15 @@ module.exports = {
             res.json({
               success: false,
             })
+            return 
           }
+          
+          // if (results.length == 0) {
+          //   console.log("No unread messages from markovasic197@gmail.com");
+          //   imap.end();
+          //   return;
+          // }  
+
           imap.addFlags(results, ["\\Seen"], { uid: true }, function (err) {
             if (err) {
               console.log("Error marking as read")
@@ -115,11 +123,7 @@ module.exports = {
           });
   
           if (err) throw err;
-          if (results.length == 0) {
-            console.log("No unread messages from markovasic197@gmail.com");
-            imap.end();
-            return;
-          }
+      
           var f = imap.fetch(results, { bodies: [""], struct: true });
           console.log("tracking f:", JSON.stringify(f, null, 2));
           f.on("message", function (msg, seqno) {
@@ -134,25 +138,11 @@ module.exports = {
                     console.log(result, error)
   
                     const userId = req.user._id; // not sure if correct
-                    console.log("user id loooged");
-                    console.log(result.url)
-                    let receipt = new Receipt({
-                      user: userId,
-                      items: [],
-                      total: 0,
-                      cloudinary: result.url,
-                    });
-  
+                   
                     // Save the receipt
-                    receipt.save().then((savedReceipt) => {
                       // Store the Cloudinary URL and receipt ID in the session (or other storage)
-                      console.log('mark me')
-                      console.log(JSON.stringify(savedReceipt), null, 2)
-                      console.log('oveeeeeeeeeeeeeeeeeee fail mozda ', savedReceipt._id)
         
                       req.session.cloudinaryUrl = result.url;
-                      req.session.receiptId = savedReceipt._id;
-                      console.log('123123', req.session.cloudinaryUrl)
                       // res.redirect("/process-receipt/parseEmail");
                       // Redirect to the waiting page
                       // res.redirect("/parser/waiting-for-items");
@@ -160,7 +150,7 @@ module.exports = {
                         success: true,
                         url: result.url
                       })
-                    });
+              
                   })
                 );
                 data.release()
@@ -202,7 +192,31 @@ module.exports = {
   },
 
 
+  createReceipt: async (req, res) => {
 
+    const userId = req.user._id;
+    const cloudinaryUrl = req.body.url; 
+
+    let receipt = new Receipt({
+      user: userId,
+      items: [],
+      total: 0,
+      cloudinary: cloudinaryUrl,
+    });
+
+    receipt.save().then((savedReceipt) => {
+      console.log('Saved receipt:', savedReceipt._id);
+      req.session.receiptId = savedReceipt._id;
+      res.redirect("/process-receipt/parseEmail")
+
+    }).catch(error => {
+      console.error("Error saving the receipt:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error saving the receipt."
+      });
+    });
+  },
 
 
 
@@ -217,6 +231,7 @@ module.exports = {
     try {
       // input user id, articles , receipt id
       console.log("krece funcija save changes");
+      console.log(req.body)
       const articles = req.body.ReceiptArticles;
       const userId = req.user._id; // ********** temp fix ***************
       const newReceipt = req.session.receiptId; // id of the receipt
@@ -226,7 +241,7 @@ module.exports = {
         $or: [{ main: true }, { user: userId }],
       });
       const receiptFactory = new ReceiptFactory();
-
+      console.log(articles, 'artikli us ovde  ')
       console.log("ulayi u loop");
       for (const article of articles) {
         // update db for categories
@@ -237,12 +252,13 @@ module.exports = {
       }
       // update receipt
       console.log ('izasao si iz loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooop')
-  
-     function updateReceipt () {
+      console.log(receiptFactory)
+     function updateReceipt (newReceipt, receiptFactory) {
+      console.log( newReceipt, receiptFactory, "zasto ovo je radi")
       receiptFactory.addReceiptToDB(newReceipt, receiptFactory);
      } 
 
-      updateReceipt()
+      updateReceipt(newReceipt,receiptFactory)
 
       console.log("updating receipt");
 
@@ -252,6 +268,7 @@ module.exports = {
       throw error;
     }
   },
+
   getSubcategories: async (req, res) => {
     try {
       console.log("odavde krece getSbucategories funcija tako da ne gledas nista iznad ");
@@ -452,6 +469,9 @@ class ReceiptFactory {
 
   async addReceiptToDB(receiptid, receiptFactory) {
     try {
+      console.log('whaaaaatsaaaap')
+      console.log(receiptid)
+      console.log(receiptFactory)
       const totalSpend = parseFloat(receiptFactory.getTotalReceiptSpend());
       const items = receiptFactory.getReceiptArticles(); // []
       const categoriesObject = receiptFactory.getCategories(); // {} 

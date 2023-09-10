@@ -302,3 +302,10 @@ async function addReceipt() {
     console.error("Error:", error);
   }
 }
+
+
+const proceedBtn = document.querySelector("#proceed-btn");
+
+proceedBtn.addEventListener("click", function() {
+  document.getElementById("loading-spinner").classList.remove("hidden");
+})
