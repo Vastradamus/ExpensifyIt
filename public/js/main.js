@@ -34,7 +34,7 @@ class Picklist {
     }
   }
   
-  const list = new Picklist(".main-categories-options", "/process-receipt/getSubcategories");
+  const list = new Picklist(".main-categories-options", "/process-receipt/getSubCategories");
 
 
 
@@ -44,7 +44,7 @@ document.getElementById("saveChanges").addEventListener("click", getReceiptArtic
 console.log('dugme radi')
 async function getReceiptArticles() {
   const articles = [];
-  const tableRows = document.querySelectorAll("#table-row");
+  const tableRows = document.querySelectorAll(".table-row");
 
   tableRows.forEach((_, index) => {
     const articleName = document.getElementById(`element-name-${index}`).innerText;
@@ -63,8 +63,9 @@ async function getReceiptArticles() {
       subCategory: subCategory,
     });
   });
-
+  console.log(articles, 'test1')
   try {
+    console.log(articles, 'test2')
     // POST request to send data
     const response = await fetch("/process-receipt/saveChanges", {
       method: "POST",

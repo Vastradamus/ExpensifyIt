@@ -63,6 +63,22 @@ module.exports = {
         }
 
       
+    },   
+    
+    getSubCategories: async (req, res) => {
+      try {
+        console.log("odavde krece getSbucategories funcija tako da ne gledas nista iznad ");
+        const mainCategoryId = req.params.id;
+        console.log(mainCategoryId);
+        const category = await Category.findById(mainCategoryId);
+        console.log(category.subCategories);
+  
+        // Returning the subCategories array as JSON
+        res.json(category.subCategories);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "An error occurred" });
+      }
     },
 
 }

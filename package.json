@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run watch\" \"npm run nodemon\"",
+    "start": "node server.js",
     "build": "postcss public/css/tailwind.css -o public/css/output.css",
     "watch": "npx postcss public/css/tailwind.css -o public/css/output.css --watch",
     "nodemon": "npx nodemon ./server.js"
