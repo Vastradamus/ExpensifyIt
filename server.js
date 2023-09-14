@@ -57,6 +57,7 @@ app.use('/process-receipt', processRoutes)
 app.use('/categories', categoriesRoutes )
 app.use('/dashboard', dashboardRoutes)
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT || 7000, ()=>{
   console.log(`Server is running on a port ${process.env.PORT}, you better catch it!`)
 })  
+  

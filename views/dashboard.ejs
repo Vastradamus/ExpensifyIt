@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tailwind Starter Template - Day Admin Template: Tailwind Toolbox</title>
-    <meta name="description" content="description here">
-    <meta name="keywords" content="keywords,here">
-
+ 
+    <meta name="description" content="dashboard ExpensifyIt receipt tracking">
+    <title>ExpensifyIt Dashboard</title>
+    <link rel="shortcut icon" type="text/css" href="/img/piggy-bank.png" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
     <!--Replace with your tailwind.css once created-->
@@ -41,21 +41,21 @@
                 <ul class="list-reset lg:flex flex-1 items-center px-4 md:px-0">
                     <li class="mr-6 my-2 md:my-0">
                         <button id="add-receipt" class="block py-1 md:py-3 pl-1 align-middle text-pink-600 no-underline hover:text-gray-900 border-b-2 border-orange-600 hover:border-orange-600">
-                            <i class="fas fa-home fa-fw mr-3 text-pink-600"></i><span class="pb-1 md:pb-0 text-sm">add new receipt</span>
+                            <i class="fas fa-solid fa-receipt fa-fw mr-3 text-pink-600"></i><span class="pb-1 md:pb-0 text-sm">add new receipt</span>
                         </button>
                     </li>
                     <li class="mr-6 my-2 md:my-0">
                         <a href="/categories" class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-900 border-b-2 border-white hover:border-pink-500">
-                            <i class="fas fa-tasks fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Add new categories</span>
+                            <i class="fas fa-solid fa-plus fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Add new categories</span>
                         </a>
                     </li>
-                    <li class="mr-6 my-2 md:my-0">
+                    <li class="ml-auto my-2 md:my-0">
                         <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-900 border-b-2 border-white hover:border-pink-500">
-                            <i class="fas fa-tasks fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm"><%=  userEmail %></span>
+                            <i class="fas fa-regular fa-envelope fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm"><%= userEmail %></span>
                         </a>
                     </li>
-                    
                 </ul>
+                
 
             
 
@@ -77,13 +77,13 @@
                     <div class="bg-white border rounded shadow p-2">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink pr-4">
-                                <div class="rounded p-3 bg-green-600"><i class="fa fa-wallet fa-2x fa-fw fa-inverse"></i></div>
+                                <div class="rounded p-3 bg-green-600"><i class="fa fa-dollar-sign fa-2x fa-fw fa-inverse"></i></div>
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-500">Total Spent</h5>
                                 <h3 class="font-bold text-3xl">
                                  <%= receiptTotal %>
-                                    <span class="text-green-500"><i class="fas fa-caret-up"></i></span>
+                                    <!-- <span class="text-green-500"><i class="fas fa-caret-up"></i></span> -->
                                 </h3>
                             </div>
                         </div>
@@ -95,13 +95,13 @@
                     <div class="bg-white border rounded shadow p-2">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink pr-4">
-                                <div class="rounded p-3 bg-pink-600"><i class="fas fa-users fa-2x fa-fw fa-inverse"></i></div>
+                                <div class="rounded p-3 bg-pink-600"><i class="fas fa-receipt fa-2x fa-fw fa-inverse"></i></div>
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-500">potrosnja poslednji racun</h5>
                                 <h3 class="font-bold text-3xl">
                                   <%=  lastreceipt %>
-                                    <span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3>
+                                    <!-- <span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3> -->
                             </div>
                         </div>
                     </div>
@@ -112,19 +112,21 @@
                     <div class="bg-white border rounded shadow p-2">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink pr-4">
-                                <div class="rounded p-3 bg-yellow-600"><i class="fas fa-user-plus fa-2x fa-fw fa-inverse"></i></div>
+                                <div class="rounded p-3 bg-yellow-600"><i class="fas fa-calendar-alt fa-2x fa-fw fa-inverse"></i></div>
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-500">potrosnja ovog meseca</h5>
-                                <h3 class="font-bold text-3xl">2 <span class="text-yellow-600"><i class="fas fa-caret-up"></i></span></h3>
+                                <h3 class="font-bold text-3xl">
+                                    <%= thisMonth %>
+                                    <!-- <span class="text-yellow-600"><i class="fas fa-receipt"></i></span></h3> -->
                             </div>
                         </div>
                     </div>
                     <!--/Metric Card-->
                 </div>
-                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                <!-- <div class="w-full md:w-1/2 xl:w-1/3 p-3"> -->
                     <!--Metric Card-->
-                    <div class="bg-white border rounded shadow p-2">
+                    <!-- <div class="bg-white border rounded shadow p-2">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink pr-4">
                                 <div class="rounded p-3 bg-blue-600"><i class="fas fa-server fa-2x fa-fw fa-inverse"></i></div>
@@ -136,10 +138,10 @@
                         </div>
                     </div>
                     <!--/Metric Card-->
-                </div>
+                <!-- </div>
                 <div class="w-full md:w-1/2 xl:w-1/3 p-3">
                     <!--Metric Card-->
-                    <div class="bg-white border rounded shadow p-2">
+                    <!-- <div class="bg-white border rounded shadow p-2">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink pr-4">
                                 <div class="rounded p-3 bg-indigo-600"><i class="fas fa-tasks fa-2x fa-fw fa-inverse"></i></div>
@@ -149,12 +151,12 @@
                                 <h3 class="font-bold text-3xl">7 tasks</h3>
                             </div>
                         </div>
-                    </div>
+                    </div> --> 
                     <!--/Metric Card-->
-                </div>
-                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                <!-- </div>
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3"> -->
                     <!--Metric Card-->
-                    <div class="bg-white border rounded shadow p-2">
+                    <!-- <div class="bg-white border rounded shadow p-2">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink pr-4">
                                 <div class="rounded p-3 bg-red-600"><i class="fas fa-inbox fa-2x fa-fw fa-inverse"></i></div>
@@ -164,9 +166,9 @@
                                 <h3 class="font-bold text-3xl">3 <span class="text-red-500"><i class="fas fa-caret-up"></i></span></h3>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!--/Metric Card-->
-                </div>
+                <!-- </div> --> 
             </div>
 
             <!--Divider-->
@@ -174,7 +176,7 @@
 
             <div class="flex flex-row flex-wrap flex-grow mt-2">
 
-                <div class="w-full md:w-1/2 p-3">
+                <div class="w-full md:w-10/12 p-3 mx-auto">
                     <!--Graph Card-->
                     <div class="bg-white border rounded shadow">
                         <div class="border-b p-3">
@@ -187,19 +189,23 @@
                     <!--/Graph Card-->
                 </div>
 
-                <div class="w-full md:w-1/2 p-3">
+                <!-- <div class="w-full md:w-1/2 p-3"> -->
                     <!--Graph Card-->
-                    <div class="bg-white border rounded shadow">
+                    <!-- <div class="bg-white border rounded shadow">
+                        <select class="absolute left-1/2 mt-2 font-bold uppercase text-gray-600"  name="" id="allReceiptCategoriesPicklist">
+                            
+                        </select>
                         <div class="border-b p-3">
                             <h5 class="font-bold uppercase text-gray-600">Graph</h5>
+                      
                         </div>
                         <div class="p-5">
                             <canvas id="chartjs-0" class="chartjs" width="undefined" height="undefined"></canvas>
                           
                         </div>
-                    </div>
+                    </div> -->
                     <!--/Graph Card-->
-                </div>
+                <!-- </div> -->
 
                 <div class="w-full md:w-1/2 xl:w-1/2 p-3">
                     <!--Graph Card-->
@@ -219,7 +225,7 @@
                   
                     <!--Graph Card pie chart-->
                     <div class="bg-white border rounded shadow">
-                        <select class="absolute left-1/2 mt-2 font-bold uppercase text-gray-600"  name="" id="oneReceiptSubcategories">
+                        <select class="absolute left-1/2 mt-2 font-bold uppercase text-gray-600"  name="" id="lastReceiptCategoriesPicklist">
                             
                         </select>
                         <div class="border-b p-3">
@@ -245,41 +251,31 @@
     </div>
     <!--/container-->
 
-    <footer class="bg-white border-t border-gray-400 shadow">
-        <div class="container max-w-md mx-auto flex py-8">
-
-            <div class="w-full mx-auto flex flex-wrap">
-                <div class="flex w-full md:w-1/2 ">
-                    <div class="px-8">
-                        <h3 class=" font-bold text-gray-900">About</h3>
-                        <p class="py-4 text-gray-600 text-sm">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus commodo nec id erat. Suspendisse consectetur dapibus velit ut lacinia.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex w-full md:w-1/2">
-                    <div class="px-8">
-                        <h3 class=" font-bold text-gray-900">Social</h3>
-                        <ul class="list-reset items-center text-sm pt-3">
-                            <li>
-                                <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
-                            </li>
-                            <li>
-                                <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
-                            </li>
-                            <li>
-                                <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1" href="#">Add social link</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-
-
+   
+<footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="/" class="flex items-center mb-4 sm:mb-0">
+                <img src="img/cover.png" class="h-20 mr-3" alt="ExpensifyIt Logo" />
+            </a>
+            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                <li>
+                    <a href="/login" class="mr-4 hover:underline md:mr-6 ">login</a>
+                </li>
+                <li>
+                    <a href="/categories" class="mr-4 hover:underline md:mr-6">categories</a>
+                </li>
+                <li>
+                    <a href="linkedin.com/marko-vasic" class="hover:underline">Contact</a>
+                </li>
+            </ul>
         </div>
-    </footer>
+        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">Copyright © 2023 by Marko Vasic</span>
+    </div>
+</footer>
+
+
 
     <div id="receipt-modal" class="fixed z-10 inset-0 overflow-y-auto hidden">
         <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
