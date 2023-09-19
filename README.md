@@ -30,9 +30,9 @@ Working with ExpensifyIt was an enlightening experience. I delved deep into the 
 
 ## More From My Portfolio:
 
-- **CheckBoxed**: An innovative tool to customize and design palettes. [View on GitHub](https://github.com/alecortega/palettable)
-- **Apartmani Petra**: Analyze and engage with Twitter data like never before. [View on GitHub](https://github.com/alecortega/twitter-battle)
+- **TickBoxed**: An innovative tool to customize and design palettes. [View on GitHub](https://github.com/Vastradamus/TickBoxed)
+- **Apartmani Petra**: Analyze and engage with Twitter data like never before. [View on GitHub](https://github.com/Vastradamus/Petra)
 
 ---
 
-*Interested in collaborating or hiring? Let's [connect](mailto:markovasic197@gmail.com)!*
+*Interested in collaborating or hiring? Let's [connect](https://www.linkedin.com/in/marko-vasic/)!*
